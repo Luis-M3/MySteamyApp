@@ -1,0 +1,52 @@
+<ion-content class="fav-content">
+  <div class="header">
+    <h1>❤️ My Favorite</h1>
+  </div>
+
+  <!-- LOADING -->
+  <ng-container *ngIf="isLoading">
+    <div class="skeleton-fav">
+      <ion-skeleton-text animated style="height: 220px; border-radius: 16px;"></ion-skeleton-text>
+    </div>
+  </ng-container>
+
+  <!-- FAVORITE EXISTS -->
+  <ng-container *ngIf="!isLoading && favorite">
+    <div class="fav-card glass-card" (click)="openDetail()">
+      <div class="fav-image">
+        <img [src]="favorite.thumb" [alt]="favorite.title" />
+        <div class="image-overlay"></div>
+        <div class="savings-badge">-{{ savings }}</div>
+      </div>
+      <div class="fav-body">
+        <h2>{{ favorite.title }}</h2>
+        <div class="store-row">
+          <img [src]="storeLogo" [alt]="favorite.storeName" class="store-logo" />
+          <span>{{ favorite.storeName }}</span>
+        </div>
+        <div class="price-row">
+          <span class="normal">${{ favorite.normalPrice }}</span>
+          <span class="sale">${{ favorite.salePrice }}</span>
+        </div>
+        <div class="rating">
+          <ion-icon name="star"></ion-icon>
+          {{ favorite.dealRating }}
+        </div>
+      </div>
+    </div>
+
+    <button class="remove-btn" (click)="removeFavorite()">
+      <ion-icon name="trash-outline"></ion-icon>
+      Remove Favorite
+    </button>
+  </ng-container>
+
+  <!-- EMPTY STATE -->
+  <ng-container *ngIf="!isLoading && !favorite">
+    <div class="empty-state">
+      <ion-icon name="heart-dislike-outline"></ion-icon>
+      <h3>No favorite yet</h3>
+      <p>Browse the <strong>Deals</strong> tab and tap the ❤️ on any game to save it here.</p>
+    </div>
+  </ng-container>
+</ion-content>

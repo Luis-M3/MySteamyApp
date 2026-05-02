@@ -1,0 +1,62 @@
+<ion-content class="deals-content">
+  <div class="header">
+    <h1>🎮 Game Deals</h1>
+    <p>Best prices, updated daily</p>
+  </div>
+
+  <app-input (searched)="onSearch($event)"></app-input>
+
+  <!-- TOP DEALS CAROUSEL -->
+  <ng-container *ngIf="!isSearching">
+    <h2 class="section-title">🔥 Top Deals</h2>
+    <div class="carousel" *ngIf="!isLoading; else skeletonCarousel">
+      <app-card
+        *ngFor="let deal of topDeals"
+        [deal]="deal"
+        [isFavorite]="isFavorite(deal)"
+        (cardClicked)="openDetail($event)"
+        (favoriteToggled)="toggleFavorite($event)">
+      </app-card>
+    </div>
+    <ng-template #skeletonCarousel>
+      <div class="carousel">
+        <div class="skeleton-card" *ngFor="let i of [1,2,3,4,5]">
+          <ion-skeleton-text animated></ion-skeleton-text>
+        </div>
+      </div>
+    </ng-template>
+  </ng-container>
+
+  <!-- SEARCH RESULTS -->
+  <ng-container *ngIf="isSearching">
+    <h2 class="section-title">🔍 Results</h2>
+
+    <div class="grid" *ngIf="!isLoading; else skeletonGrid">
+      <ng-container *ngIf="searchResults.length > 0; else emptyState">
+        <app-card
+          *ngFor="let deal of searchResults"
+          [deal]="deal"
+          [isFavorite]="isFavorite(deal)"
+          (cardClicked)="openDetail($event)"
+          (favoriteToggled)="toggleFavorite($event)">
+        </app-card>
+      </ng-container>
+    </div>
+
+    <ng-template #skeletonGrid>
+      <div class="grid">
+        <div class="skeleton-card" *ngFor="let i of [1,2,3,4]">
+          <ion-skeleton-text animated></ion-skeleton-text>
+        </div>
+      </div>
+    </ng-template>
+
+    <ng-template #emptyState>
+      <div class="empty-state">
+        <ion-icon name="game-controller-outline"></ion-icon>
+        <p>No games found</p>
+        <span>Try a different title</span>
+      </div>
+    </ng-template>
+  </ng-container>
+</ion-content>

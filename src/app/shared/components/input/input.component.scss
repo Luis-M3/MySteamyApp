@@ -1,0 +1,11 @@
+.search-wrapper {
+  ion-searchbar {
+    --background: rgba(255,255,255,0.08);
+    --border-radius: 12px;
+    --color: #fff;
+    --placeholder-color: rgba(255,255,255,0.4);
+    --icon-color: rgba(255,255,255,0.4);
+    --box-shadow: none;
+    padding: 0;
+  }
+}

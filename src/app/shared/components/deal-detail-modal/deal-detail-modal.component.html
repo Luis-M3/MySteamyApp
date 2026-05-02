@@ -1,0 +1,43 @@
+<div class="modal-container">
+  <div class="drag-handle" (click)="dismiss()"></div>
+
+  <div class="banner">
+    <img [src]="deal.thumb" [alt]="deal.title" />
+    <div class="banner-overlay"></div>
+  </div>
+
+  <div class="modal-body">
+    <h2 class="title">{{ deal.title }}</h2>
+
+    <div class="meta-row">
+      <div class="store-info">
+        <img [src]="storeLogo" [alt]="storeName" class="store-logo"/>
+        <span>{{ storeName }}</span>
+      </div>
+      <div class="rating">
+        <ion-icon name="star"></ion-icon>
+        {{ deal.dealRating }}
+      </div>
+    </div>
+
+    <div class="scores" *ngIf="deal.metacriticScore && deal.metacriticScore !== '0'">
+      <div class="score-chip">
+        <span class="label">Metacritic</span>
+        <span class="value">{{ deal.metacriticScore }}</span>
+      </div>
+    </div>
+
+    <div class="price-section">
+      <div class="prices">
+        <span class="normal">${{ deal.normalPrice }}</span>
+        <span class="sale">${{ deal.salePrice }}</span>
+      </div>
+      <div class="savings-pill">-{{ savings }}</div>
+    </div>
+
+    <button class="view-deal-btn" (click)="openDeal()">
+      <ion-icon name="open-outline"></ion-icon>
+      VIEW DEAL
+    </button>
+  </div>
+</div>

@@ -1,9 +1,17 @@
-import type { CapacitorConfig } from '@capacitor/cli';
+import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'io.ionic.starter',
-  appName: 'my-steamy-app',
-  webDir: 'www'
+  appId: 'io.ionic.mysteamyapp',
+  appName: 'My Steamy App',
+  webDir: 'www',
+  server: {
+    androidScheme: 'https'
+  },
+  plugins: {
+    Preferences: {
+      group: 'CapacitorStorage'
+    }
+  }
 };
 
 export default config;

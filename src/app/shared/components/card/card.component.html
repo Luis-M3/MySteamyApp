@@ -1,0 +1,25 @@
+<div class="glass-card" (click)="cardClicked.emit(deal)">
+  <div class="card-image">
+    <img [src]="deal.thumb" [alt]="deal.title" loading="lazy" />
+    <div class="savings-badge">-{{ savings }}</div>
+    <button class="fav-btn" (click)="onFavorite($event)">
+      <ion-icon [name]="isFavorite ? 'heart' : 'heart-outline'"
+                [class.active]="isFavorite"></ion-icon>
+    </button>
+  </div>
+  <div class="card-body">
+    <h3 class="game-title">{{ deal.title }}</h3>
+    <div class="store-info">
+      <img class="store-logo" [src]="storeLogo" [alt]="storeName" />
+      <span class="store-name">{{ storeName }}</span>
+    </div>
+    <div class="price-row">
+      <span class="normal-price">${{ deal.normalPrice }}</span>
+      <span class="sale-price">${{ deal.salePrice }}</span>
+    </div>
+    <div class="rating">
+      <ion-icon name="star"></ion-icon>
+      <span>{{ deal.dealRating }}</span>
+    </div>
+  </div>
+</div>
