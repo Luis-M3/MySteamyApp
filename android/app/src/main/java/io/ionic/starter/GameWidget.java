@@ -2,13 +2,9 @@ package io.ionic.starter;
 
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
-import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
-
-import androidx.work.ExistingWorkPolicy;
-import androidx.work.OneTimeWorkRequest;
-import androidx.work.WorkManager;
 
 public class GameWidget extends AppWidgetProvider {
 
@@ -16,7 +12,7 @@ public class GameWidget extends AppWidgetProvider {
 
     @Override
     public void onUpdate(Context context, AppWidgetManager manager, int[] appWidgetIds) {
-        Log.d(TAG, "onUpdate called, widgetIds: " + appWidgetIds.length);
+        Log.d(TAG, "onUpdate called");
         triggerUpdate(context);
     }
 
@@ -27,15 +23,8 @@ public class GameWidget extends AppWidgetProvider {
     }
 
     public static void triggerUpdate(Context context) {
-        Log.d(TAG, "triggerUpdate called");
-        OneTimeWorkRequest workRequest = new OneTimeWorkRequest
-            .Builder(WidgetUpdateWorker.class)
-            .build();
-        WorkManager.getInstance(context)
-            .enqueueUniqueWork(
-                "widget_update",
-                ExistingWorkPolicy.REPLACE,
-                workRequest
-            );
+        Log.d(TAG, "triggerUpdate → starting WidgetService");
+        Intent intent = new Intent(context, WidgetService.class);
+        context.startService(intent);
     }
 }

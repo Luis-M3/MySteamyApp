@@ -9,16 +9,26 @@ const routes: Routes = [
     children: [
       {
         path: 'deals',
-        loadChildren: () => import('../pages/deals/deals-module').then(m => m.DealsPageModule)
+        loadChildren: () =>
+          import('../pages/deals/deals-module').then(m => m.DealsPageModule)
       },
       {
         path: 'favorite',
-        loadChildren: () => import('../pages/favorite/favorite-module').then(m => m.FavoritePageModule)
+        loadChildren: () =>
+          import('../pages/favorite/favorite-module').then(m => m.FavoritePageModule)
       },
-      { path: '', redirectTo: 'deals', pathMatch: 'full' }
+      {
+        path: '',
+        redirectTo: 'deals',
+        pathMatch: 'full'
+      }
     ]
   },
-  { path: '', redirectTo: '/tabs/deals', pathMatch: 'full' }
+  {
+    path: '',
+    redirectTo: '/tabs/deals',
+    pathMatch: 'full'
+  }
 ];
 
 @NgModule({

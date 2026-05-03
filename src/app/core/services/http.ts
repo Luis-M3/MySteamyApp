@@ -1,20 +1,35 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { from, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { CapacitorHttp } from '@capacitor/core';
 
 @Injectable({ providedIn: 'root' })
 export class HttpService {
   private baseUrl = 'https://www.cheapshark.com/api/1.0';
 
-  constructor(private http: HttpClient) {}
-
   get<T>(endpoint: string, params?: Record<string, string>): Observable<T> {
-    let httpParams = new HttpParams();
+    const url = new URL(`${this.baseUrl}${endpoint}`);
+
     if (params) {
       Object.entries(params).forEach(([k, v]) => {
-        httpParams = httpParams.set(k, v);
+        url.searchParams.set(k, v);
       });
     }
-    return this.http.get<T>(`${this.baseUrl}${endpoint}`, { params: httpParams });
+
+    return from(
+      CapacitorHttp.get({
+        url: url.toString(),
+        headers: {
+          'Accept': 'application/json'
+        }
+      })
+    ).pipe(
+      map(response => {
+        if (response.status !== 200) {
+          throw new Error(`HTTP ${response.status}`);
+        }
+        return response.data as T;
+      })
+    );
   }
 }

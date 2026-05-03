@@ -1,7 +1,7 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'io.ionic.mysteamyapp',
+  appId: 'io.ionic.starter',
   appName: 'My Steamy App',
   webDir: 'www',
   server: {
@@ -10,6 +10,9 @@ const config: CapacitorConfig = {
   plugins: {
     Preferences: {
       group: 'CapacitorStorage'
+    },
+    CapacitorHttp: {
+      enabled: true
     }
   }
 };

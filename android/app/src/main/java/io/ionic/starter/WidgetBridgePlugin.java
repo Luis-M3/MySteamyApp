@@ -1,5 +1,6 @@
 package io.ionic.starter;
 
+import android.content.Intent;
 import com.getcapacitor.Plugin;
 import com.getcapacitor.PluginCall;
 import com.getcapacitor.PluginMethod;
@@ -10,7 +11,8 @@ public class WidgetBridgePlugin extends Plugin {
 
     @PluginMethod
     public void updateWidget(PluginCall call) {
-        GameWidget.triggerUpdate(getContext());
+        Intent intent = new Intent(getContext(), WidgetService.class);
+        getContext().startService(intent);
         call.resolve();
     }
 }
