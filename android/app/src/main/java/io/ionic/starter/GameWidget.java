@@ -2,29 +2,40 @@ package io.ionic.starter;
 
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
+import android.content.ComponentName;
 import android.content.Context;
-import android.content.Intent;
+import android.util.Log;
+
+import androidx.work.ExistingWorkPolicy;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkManager;
 
 public class GameWidget extends AppWidgetProvider {
 
+    private static final String TAG = "GameWidget";
+
     @Override
-    public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
-        for (int appWidgetId : appWidgetIds) {
-            Intent intent = new Intent(context, WidgetUpdateService.class);
-            intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
-            context.startService(intent);
-        }
+    public void onUpdate(Context context, AppWidgetManager manager, int[] appWidgetIds) {
+        Log.d(TAG, "onUpdate called, widgetIds: " + appWidgetIds.length);
+        triggerUpdate(context);
     }
 
     @Override
     public void onEnabled(Context context) {
-        Intent intent = new Intent(context, WidgetUpdateService.class);
-        context.startService(intent);
+        Log.d(TAG, "onEnabled called");
+        triggerUpdate(context);
     }
 
-    @Override
-    public void onDisabled(Context context) {
-        Intent intent = new Intent(context, WidgetUpdateService.class);
-        context.stopService(intent);
+    public static void triggerUpdate(Context context) {
+        Log.d(TAG, "triggerUpdate called");
+        OneTimeWorkRequest workRequest = new OneTimeWorkRequest
+            .Builder(WidgetUpdateWorker.class)
+            .build();
+        WorkManager.getInstance(context)
+            .enqueueUniqueWork(
+                "widget_update",
+                ExistingWorkPolicy.REPLACE,
+                workRequest
+            );
     }
 }

@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Observable, forkJoin, map } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { HttpService } from '../../core/services/http';
 import { Deal, Store, FavoriteGame, GameDetail } from '../interfaces/models';
 import { Preferences } from '@capacitor/preferences';
+import { Capacitor } from '@capacitor/core';
 
 @Injectable({ providedIn: 'root' })
 export class GameProviderService {
@@ -44,6 +45,7 @@ export class GameProviderService {
 
   async saveFavorite(game: FavoriteGame): Promise<void> {
     await Preferences.set({ key: this.FAV_KEY, value: JSON.stringify(game) });
+    this.notifyWidget();
   }
 
   async getFavorite(): Promise<FavoriteGame | null> {
@@ -53,9 +55,22 @@ export class GameProviderService {
 
   async removeFavorite(): Promise<void> {
     await Preferences.remove({ key: this.FAV_KEY });
+    this.notifyWidget();
   }
 
   getRedirectUrl(dealID: string): string {
     return `https://www.cheapshark.com/redirect?dealID=${dealID}`;
+  }
+
+  private notifyWidget(): void {
+    if (Capacitor.getPlatform() !== 'android') return;
+    try {
+      const plugins = (Capacitor as any).Plugins;
+      if (plugins?.WidgetBridge) {
+        plugins.WidgetBridge.updateWidget();
+      }
+    } catch (e) {
+      console.warn('WidgetBridge not available', e);
+    }
   }
 }

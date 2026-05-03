@@ -24,30 +24,43 @@
     margin: 0;
   }
 
+  /* ── CARRUSEL HORIZONTAL ── */
   .carousel {
     display: flex;
+    flex-direction: row;
     gap: 12px;
     overflow-x: auto;
+    overflow-y: visible;
     padding: 0 16px 16px;
     scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
     &::-webkit-scrollbar { display: none; }
-
-    app-card { min-width: 200px; }
   }
 
+  .carousel-item {
+    flex: 0 0 180px;   /* ancho fijo en carrusel */
+    width: 180px;
+  }
+
+  /* ── GRID RESPONSIVO ── */
   .grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
     gap: 12px;
-    padding: 0 16px 16px;
+    padding: 0 16px 80px;
+    /* 2 columnas base */
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .grid-item {
+    width: 100%;
+    min-width: 0;      /* evita overflow en grid */
   }
 
   .skeleton-card {
-    height: 220px;
+    height: 200px;
     border-radius: 16px;
     overflow: hidden;
     background: rgba(255,255,255,0.05);
-
     ion-skeleton-text {
       height: 100%;
       --border-radius: 16px;
@@ -60,7 +73,6 @@
     align-items: center;
     padding: 48px 16px;
     color: rgba(255,255,255,0.3);
-
     ion-icon { font-size: 56px; margin-bottom: 12px; }
     p { font-size: 18px; font-weight: 600; margin: 0 0 4px; }
     span { font-size: 13px; }

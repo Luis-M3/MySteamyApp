@@ -10,13 +10,14 @@
   <ng-container *ngIf="!isSearching">
     <h2 class="section-title">🔥 Top Deals</h2>
     <div class="carousel" *ngIf="!isLoading; else skeletonCarousel">
-      <app-card
-        *ngFor="let deal of topDeals"
-        [deal]="deal"
-        [isFavorite]="isFavorite(deal)"
-        (cardClicked)="openDetail($event)"
-        (favoriteToggled)="toggleFavorite($event)">
-      </app-card>
+      <div class="carousel-item" *ngFor="let deal of topDeals">
+        <app-card
+          [deal]="deal"
+          [isFavorite]="isFavorite(deal)"
+          (cardClicked)="openDetail($event)"
+          (favoriteToggled)="toggleFavorite($event)">
+        </app-card>
+      </div>
     </div>
     <ng-template #skeletonCarousel>
       <div class="carousel">
@@ -31,17 +32,20 @@
   <ng-container *ngIf="isSearching">
     <h2 class="section-title">🔍 Results</h2>
 
-    <div class="grid" *ngIf="!isLoading; else skeletonGrid">
+    <ng-container *ngIf="!isLoading; else skeletonGrid">
       <ng-container *ngIf="searchResults.length > 0; else emptyState">
-        <app-card
-          *ngFor="let deal of searchResults"
-          [deal]="deal"
-          [isFavorite]="isFavorite(deal)"
-          (cardClicked)="openDetail($event)"
-          (favoriteToggled)="toggleFavorite($event)">
-        </app-card>
+        <div class="grid">
+          <div class="grid-item" *ngFor="let deal of searchResults">
+            <app-card
+              [deal]="deal"
+              [isFavorite]="isFavorite(deal)"
+              (cardClicked)="openDetail($event)"
+              (favoriteToggled)="toggleFavorite($event)">
+            </app-card>
+          </div>
+        </div>
       </ng-container>
-    </div>
+    </ng-container>
 
     <ng-template #skeletonGrid>
       <div class="grid">

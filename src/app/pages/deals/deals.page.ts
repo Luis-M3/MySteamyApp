@@ -4,6 +4,7 @@ import { Subject, forkJoin, takeUntil } from 'rxjs';
 import { GameProviderService } from '../../shared/services/game-provider';
 import { DealDetailModalComponent } from '../../shared/components/deal-detail-modal/deal-detail-modal.component';
 import { Deal, FavoriteGame } from '../../shared/interfaces/models';
+import { Capacitor } from '@capacitor/core';
 
 @Component({
   selector: 'app-deals',
@@ -34,7 +35,10 @@ export class DealsPage implements OnInit, OnDestroy {
           this.topDeals = deals;
           this.isLoading = false;
         },
-        error: () => { this.isLoading = false; }
+        error: (err) => {
+          console.error('Error loading deals:', err);
+          this.isLoading = false;
+        }
       });
 
     this.loadFavorite();
@@ -58,7 +62,10 @@ export class DealsPage implements OnInit, OnDestroy {
         this.searchResults = results;
         this.isLoading = false;
       },
-      error: () => { this.isLoading = false; }
+      error: (err) => {
+        console.error('Error searching:', err);
+        this.isLoading = false;
+      }
     });
   }
 

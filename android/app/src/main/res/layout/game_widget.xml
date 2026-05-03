@@ -2,109 +2,176 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/widget_background"
-    android:padding="8dp">
+    android:background="#FF1A1A2E">
 
+    <!-- FLIPPER con las 2 vistas -->
     <ViewFlipper
         android:id="@+id/viewFlipper"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:inAnimation="@anim/slide_in_right"
-        android:outAnimation="@anim/slide_out_left">
+        android:outAnimation="@anim/slide_out_left"
+        android:visibility="gone">
 
         <!-- VIEW 1 -->
-        <RelativeLayout android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <ImageView android:id="@+id/gameImage1"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="centerCrop"
-                android:alpha="0.5"/>
-            <TextView android:id="@+id/gameTitle1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="#FFFFFF"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                android:layout_alignParentTop="true"
-                android:layout_marginTop="4dp"
-                android:layout_marginStart="4dp"/>
-            <TextView android:id="@+id/salePrice1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="#00E676"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:layout_alignParentBottom="true"
-                android:layout_marginBottom="4dp"
-                android:layout_marginStart="4dp"/>
-            <TextView android:id="@+id/savings1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="#000000"
-                android:background="#00E676"
-                android:textSize="11sp"
-                android:textStyle="bold"
-                android:paddingStart="6dp"
-                android:paddingEnd="6dp"
-                android:layout_alignParentBottom="true"
-                android:layout_marginBottom="4dp"
-                android:layout_toEndOf="@id/salePrice1"
-                android:layout_marginStart="6dp"/>
-            <ImageView android:id="@+id/storeLogo1"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentBottom="true"
-                android:layout_margin="4dp"/>
-        </RelativeLayout>
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#FF1A1A2E">
 
-        <!-- VIEW 2 (idéntica estructura, IDs terminan en 2) -->
-        <RelativeLayout android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <ImageView android:id="@+id/gameImage2"
+            <ImageView
+                android:id="@+id/gameImage1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
-                android:alpha="0.5"/>
-            <TextView android:id="@+id/gameTitle2"
-                android:layout_width="wrap_content"
+                android:alpha="0.4"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="#FFFFFF"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                android:layout_alignParentTop="true"
-                android:layout_marginTop="4dp"
-                android:layout_marginStart="4dp"/>
-            <TextView android:id="@+id/salePrice2"
-                android:layout_width="wrap_content"
+                android:layout_gravity="top"
+                android:background="#CC000000"
+                android:padding="8dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/gameTitle1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textColor="#FFFFFF"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:maxLines="2"
+                    android:ellipsize="end"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="#00E676"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:layout_alignParentBottom="true"
-                android:layout_marginBottom="4dp"
-                android:layout_marginStart="4dp"/>
-            <TextView android:id="@+id/savings2"
-                android:layout_width="wrap_content"
+                android:layout_gravity="bottom"
+                android:background="#CC000000"
+                android:padding="8dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/salePrice1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#00E676"
+                    android:textSize="16sp"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/savings1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
+                    android:background="#FF00E676"
+                    android:textColor="#000000"
+                    android:textSize="10sp"
+                    android:textStyle="bold"
+                    android:paddingStart="5dp"
+                    android:paddingEnd="5dp"
+                    android:paddingTop="2dp"
+                    android:paddingBottom="2dp"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="1"/>
+
+                <ImageView
+                    android:id="@+id/storeLogo1"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:scaleType="fitCenter"/>
+
+            </LinearLayout>
+
+        </FrameLayout>
+
+        <!-- VIEW 2 -->
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#FF1A1A2E">
+
+            <ImageView
+                android:id="@+id/gameImage2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:alpha="0.4"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="#000000"
-                android:background="#00E676"
-                android:textSize="11sp"
-                android:textStyle="bold"
-                android:paddingStart="6dp"
-                android:paddingEnd="6dp"
-                android:layout_alignParentBottom="true"
-                android:layout_marginBottom="4dp"
-                android:layout_toEndOf="@id/salePrice2"
-                android:layout_marginStart="6dp"/>
-            <ImageView android:id="@+id/storeLogo2"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentBottom="true"
-                android:layout_margin="4dp"/>
-        </RelativeLayout>
+                android:layout_gravity="top"
+                android:background="#CC000000"
+                android:padding="8dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/gameTitle2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textColor="#FFFFFF"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:maxLines="2"
+                    android:ellipsize="end"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:background="#CC000000"
+                android:padding="8dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/salePrice2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#00E676"
+                    android:textSize="16sp"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/savings2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
+                    android:background="#FF00E676"
+                    android:textColor="#000000"
+                    android:textSize="10sp"
+                    android:textStyle="bold"
+                    android:paddingStart="5dp"
+                    android:paddingEnd="5dp"
+                    android:paddingTop="2dp"
+                    android:paddingBottom="2dp"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="1"/>
+
+                <ImageView
+                    android:id="@+id/storeLogo2"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:scaleType="fitCenter"/>
+
+            </LinearLayout>
+
+        </FrameLayout>
 
     </ViewFlipper>
 
@@ -115,14 +182,25 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:gravity="center"
-        android:visibility="gone">
+        android:background="#FF1A1A2E"
+        android:visibility="visible">
+
         <TextView
-            android:text="❤️ Add a favorite\ngame in the app"
-            android:textColor="#AAAAAA"
-            android:textSize="13sp"
-            android:gravity="center"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:text="Open the app and mark"
+            android:textColor="#AAAAAA"
+            android:textSize="12sp"
+            android:gravity="center"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="a game as favorite"
+            android:textColor="#AAAAAA"
+            android:textSize="12sp"
+            android:gravity="center"/>
+
     </LinearLayout>
 
 </FrameLayout>
